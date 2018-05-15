@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$system_name}-登录</title>
+</head>
+<body style="padding: 100px;">
+    <h1>{$system_name}</h1><br/><br/>
+    <form method="post" action="{:url('login/do_login')}">
+    用户名：<input name="user_name" type="text" style="width: 200px"/> <br/><br/>
+    密&nbsp;&nbsp;&nbsp;码：<input name="password" type="password" style="width: 200px"/> <br/><br/>
+    </a>
+        <input
+                style="padding: 5px 10px; line-height: 20px; border-radius: 5px; border: 1px solid #cccccc; cursor: pointer;"
+                type="submit" value="登录" />
+    </form>
+    <br/>
+    <br/>
+    <br/>
+错误信息{$error_msg}
+</body>
+</html>
