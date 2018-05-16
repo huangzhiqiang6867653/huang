@@ -1,0 +1,12 @@
+.layui-tab-item {
+    display: none;
+    height: 100%;
+}
+.index-content {
+    padding: 15px;
+    text-align: center;
+    font-size: 30px;
+    color: #23262E;
+    height: calc(100% - 30px);
+    width: calc(100% - 30px);
+}

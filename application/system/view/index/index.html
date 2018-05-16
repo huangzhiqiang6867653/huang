@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     {css href="__STATIC__/layui/css/layui.css" /}
+    {css href="__CSS__/index.css" /}
     {js href="__STATIC__/layui/layui.js" /}
     {js href="__JS__/jquery-1.7.0.min.js" /}
     <meta charset="UTF-8">
@@ -16,11 +17,17 @@
             <li class="layui-nav-item"><a href="">首页</a></li>
             {foreach $menu_list as $key => $value }
                 {if condition="$value->level_type eq 1"}
-                    <li class="layui-nav-item"><a href="{:url($value->function_url)}">{$value->function_name}</a>
+                    <li class="layui-nav-item"><a href="">{$value->function_name}</a>
                         <dl class="layui-nav-child">
                             {foreach $menu_list as $key2 => $value2 }
                                 {if condition="$value2->parent_id eq $value->function_id"}
-                                    <dd><a href="{$value2->function_url}">{$value2->function_name}</a></dd>
+                                    <dd
+                                            _href="{:url($value2->function_url)}"
+                                            _id = "{$value2->function_id}"
+                                            style="cursor: pointer;"
+                                            class="second_menu_id"
+                                    ><a>{$value2->function_name}</a>
+                                    </dd>
                                 {/if}
                             {/foreach}
                         </dl>
@@ -35,9 +42,9 @@
                     {$user_info->user_name}
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">基本资料</a></dd>
-                    <dd><a href="">安全设置</a></dd>
-                    <dd><a href="">修改密码</a></dd>
+                    <dd><a href="javascript:;">基本资料</a></dd>
+                    <dd><a href="javascript:;">安全设置</a></dd>
+                    <dd><a href="javascript:;">修改密码</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item" style="cursor: pointer;" id="logout_id"><a>退出</a></li>
@@ -46,8 +53,17 @@
 
     <div class="layui-body" style="left: 0;">
         <!-- 内容主体区域 -->
-        <div style="padding: 15px; text-align: center; font-size: 30px; color: #23262E">
-            
+        <div class="index-content">
+            <div class="layui-tab" lay-allowClose="true" lay-filter="index_tab_filter" style="height: calc(100% - 71px);">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">首页</li>
+                    <!--<li>用户管理</li>-->
+                </ul>
+                <div class="layui-tab-content" style="height: 100%;">
+                    <div class="layui-tab-item layui-show">首页</div>
+                    <!--<div class="layui-tab-item"><iframe src="http://www.hao123.com"></iframe></div>-->
+                </div>
+            </div>
         </div>
     </div>
 

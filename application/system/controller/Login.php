@@ -43,6 +43,9 @@ class Login extends CommonController
 
     }
 
+    /**
+     * 退出
+     */
     public function do_logout() {
         Session::clear(config('session.prefix'));
         $this->redirect('system/login/index');

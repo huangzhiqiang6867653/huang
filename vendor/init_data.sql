@@ -27,9 +27,10 @@ VALUES
 ('用户管理', '/system/user/index', 1, 2, 1, NOW(), NOW()),
 ('用户组管理', '/system/group/index', 2, 2, 1, NOW(), NOW()),
 ('角色权限管理', '/system/role/index', 3, 2, 1, NOW(), NOW()),
-('功能管理', '/system/function/index', 4, 2, 1, NOW(), NOW()),
+('功能管理', '/system/functions/index', 4, 2, 1, NOW(), NOW()),
 ('组织机构管理', '/system/organization/index', 5, 2, 1, NOW(), NOW()),
-('日志管理', '/system/log/index', 6, 2, 1, NOW(), NOW());
+('日志管理', '/system/log/index', 6, 2, 1, NOW(), NOW()),
+('字典管理', '/system/dictionary/index', 7, 2, 1, NOW(), NOW());
 
 /*==============================================================*/
 /* 创建角色并分配相应的权限               		                    */
@@ -73,5 +74,9 @@ INSERT INTO tb_relation_role_fd(role_id, function_id) VALUES
 (
 	(SELECT role_id FROM tb_business_role WHERE role_name = '管理员角色'),
 	(SELECT function_id FROM tb_business_function WHERE function_name = '日志管理')
+),
+(
+	(SELECT role_id FROM tb_business_role WHERE role_name = '管理员角色'),
+	(SELECT function_id FROM tb_business_function WHERE function_name = '字典管理')
 )
 ;
