@@ -39,7 +39,7 @@ layui.define(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'ele
         var data = obj.data //获得当前行数据
             ,layEvent = obj.event; //获得 lay-event 对应的值
         if(layEvent === 'detail'){
-            operation_user(data['user_id']);
+            operation_user(data['user_id'], 'view');
         } else if(layEvent === 'del'){
             layer.confirm('真的删除行么', function(index){
                 obj.del(); //删除对应行（tr）的DOM结构
@@ -55,23 +55,24 @@ layui.define(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'ele
                 table.reload('user_list_id');
             });
         } else if(layEvent === 'edit'){
-            operation_user(data['user_id']);
+            operation_user(data['user_id'], 'edit');
         }
     });
 
 
     //新增编辑用户
     $(document).on('click','#user_operation_id',function(){
-        operation_user()
+        operation_user('', 'add')
     });
 
-    function operation_user(user_id) {
+    function operation_user(user_id, type) {
+        var btn_text = type == 'add'?'新增':(type == 'edit'?'修改':(type == 'view'?'关闭':'取消'));
         layer.open({
             title: user_id?'修改用户':'新增用户',
             content: user_id?('用户id'+ user_id):'新增',
             area: ['80%', '90%'],
             maxmin: true,
-            btn: ['取消'],
+            btn: [btn_text],
             yes: function(index){
                 layer.close(index);
             }
