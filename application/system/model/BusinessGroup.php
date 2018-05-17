@@ -7,9 +7,9 @@
  */
 
 namespace app\system\model;
-use think\Model;
+use app\common\CommonModel;
 
-class BusinessGroup
+class BusinessGroup extends CommonModel
 {
 
 }

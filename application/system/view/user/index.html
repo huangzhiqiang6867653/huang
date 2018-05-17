@@ -2,12 +2,25 @@
 <html lang="en">
 <head>
     {css href="__STATIC__/layui/css/layui.css" /}
+    {js href="__CSS__/user.css" /}
     {js href="__STATIC__/layui/layui.js" /}
-    {js href="__JS__/jquery-1.7.0.min.js" /}
     <meta charset="UTF-8">
     <title>用户管理</title>
 </head>
 <body>
-
+    <div class="demoTable">
+        搜索内容：
+        <div class="layui-inline">
+            <input class="layui-input" name="search_content" id="user_search_id" autocomplete="off">
+        </div>
+        <button class="layui-btn layui-btn-radius" style="margin-left: 30px;" data-type="reload">搜索</button>
+    </div>
+    <table class="layui-hide" id="user_list_id" lay-filter="demo"></table>
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
 </body>
 </html>
+{js href="__JS__/user.js" /}
