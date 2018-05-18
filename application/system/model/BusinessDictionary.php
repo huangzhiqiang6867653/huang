@@ -7,9 +7,9 @@
  */
 
 namespace app\system\model;
-use think\Model;
+use app\common\CommonModel;
 
-class BusinessDictionary extends Model
+class BusinessDictionary extends CommonModel
 {
 
 }

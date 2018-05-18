@@ -9,6 +9,7 @@
 namespace app\system\controller;
 use app\common\CommonController;
 use app\system\model\BusinessUser;
+use think\Exception;
 
 class User extends CommonController
 {
@@ -18,9 +19,16 @@ class User extends CommonController
      */
     public function index()
     {
-        $user = new BusinessUser();
-        $user_list = $user->all();
         return view('index');
+    }
 
+    /**
+     * @param int $page
+     * @param $limit
+     * 用户列表
+     */
+    public function user_list($page = 1, $limit) {
+        $user = new BusinessUser();
+        $user->get_user_list($page, $limit);
     }
 }

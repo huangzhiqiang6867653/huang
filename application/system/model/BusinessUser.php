@@ -9,13 +9,13 @@
 namespace app\system\model;
 
 
-use think\Model;
+use app\common\CommonModel;
 use think\Session;
 use app\system\model\RelationRoleUg;
 use app\system\model\RelationUserGroup;
 use app\system\model\RelationRoleFd;
 
-class BusinessUser extends Model
+class BusinessUser extends CommonModel
 {
     /**
      * @param string $username
@@ -60,6 +60,13 @@ class BusinessUser extends Model
         }
     }
 
+    /**
+     * @return false|\PDOStatement|string|\think\Collection
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     * 获取当前用户权限菜单
+     */
     public function get_user_menu(){
         //1、获取用户角色role_id列表
         $user_id = Session::get('user_info')->user_id;
@@ -76,5 +83,22 @@ class BusinessUser extends Model
         $menu_list = $menu->where('function_id', 'in', $function_ids)->order('level_type','asc')->order('sort', 'asc')->select();
         return $menu_list;
 
+    }
+
+    public function get_user_list($page = 1, $limit) {
+        try{
+            $limit = $limit?$limit:config('paginate.list_rows');
+            $user = new BusinessUser();
+            $count = $user->count();
+            $list = $user
+                ->field('user_id,user_name, password')
+                ->limit(($page - 1)* $limit,$limit)
+                ->order('update_time', 'desc')
+                ->select();
+            $list = collection($list)->toArray();
+            return $this->list_success_return($count,$list);
+        }catch (Exception $e) {
+            $this->list_error_return($e->getMessage());
+        }
     }
 }
