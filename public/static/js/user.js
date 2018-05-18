@@ -30,6 +30,7 @@ layui.define(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'ele
             {field: 'user_id', title: '主键',sort: true, align: 'center'},
             {field: 'user_name', title: '用户名', align: 'center'},
             {field: 'password', title: '密码', align: 'center'},
+            {field: 'create_time', title: '创建时间', align: 'center'},
             {fixed: 'right', width: 165, align:'center', toolbar: '#operationBar'}
         ]]
     });
@@ -42,17 +43,34 @@ layui.define(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'ele
             operation_user(data['user_id'], 'view');
         } else if(layEvent === 'del'){
             layer.confirm('真的删除行么', function(index){
-                obj.del(); //删除对应行（tr）的DOM结构
-                layer.close(index);
-                //向服务端发送删除指令
-                layer.msg('删除成功～',
-                    {
-                        icon: 1,
-                        time: 500 //2秒关闭（如果不配置，默认是3秒）
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: '../user/delete_user_info/',
+                    data: {'user_id': data['user_id']},
+                    success: function (data) {
+                        if(data.code == 200) {
+                            layer.close(index);
+                            //向服务端发送删除指令
+                            layer.msg('删除成功～',
+                                {
+                                    icon: 1,
+                                    time: 1000 //1秒关闭（如果不配置，默认是3秒）
+                                }
+                            );
+                            //刷新table
+                            table.reload('user_list_id');
+                        }else{
+                            layer.msg(data.msg,
+                                {
+                                    icon: 2,
+                                    time: 1000 //1秒关闭（如果不配置，默认是3秒）
+                                }
+                            );
+                        }
                     }
-                    );
-                //刷新table
-                table.reload('user_list_id');
+                });
+
             });
         } else if(layEvent === 'edit'){
             operation_user(data['user_id'], 'edit');
@@ -67,6 +85,11 @@ layui.define(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'ele
 
     function operation_user(user_id, type) {
         var btn_text = type == 'add'?'新增':(type == 'edit'?'修改':(type == 'view'?'关闭':'取消'));
+        if(user_id){
+            $.ajax(
+
+            );
+        }
         layer.open({
             title: user_id?'修改用户':'新增用户',
             content: user_id?('用户id'+ user_id):'新增',

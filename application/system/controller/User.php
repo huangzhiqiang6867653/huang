@@ -25,10 +25,23 @@ class User extends CommonController
     /**
      * @param int $page
      * @param $limit
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      * 用户列表
      */
     public function user_list($page = 1, $limit) {
         $user = new BusinessUser();
         $user->get_user_list($page, $limit);
+    }
+
+    public function to_user_form($user_id = ''){
+        $user = new BusinessUser();
+        $user->get_user_info(10);
+    }
+
+    public function delete_user_info($user_id = '') {
+        $user = new BusinessUser();
+        $user->delete_user_info($user_id);
     }
 }

@@ -30,6 +30,7 @@ class Login extends CommonController
     /**
      * @param string $user_name
      * @param string $password
+     * @throws \think\exception\DbException
      * 登录校验
      */
     public function do_login($user_name = '', $password = '') {
