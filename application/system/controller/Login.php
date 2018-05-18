@@ -22,9 +22,10 @@ class Login extends CommonController
             $this->redirect('system/index/index');
         }
         $system_config = [
-            'system_name'  => config('system.system_name')
+            'system_name'  => config('system.system_name'),
+            'system_footer'  => config('system.system_footer'),
         ];
-        return view('login', array_merge(['error_msg'=>''],$system_config));
+        return view(config('system.login_page'), array_merge(['error_msg'=>''],$system_config));
     }
 
     /**

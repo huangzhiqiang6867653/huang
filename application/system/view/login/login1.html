@@ -16,7 +16,7 @@
     <div class="login">
         <div class="login_logo"><a href="#"><img src="http://localhost/huang/public/static/layui/images/login_logo.png " /></a></div>
         <div class="login_name">
-            <p>后台管理系统</p>
+            <p>{$system_name}后台管理系统</p>
         </div>
         <form method="post" action="{:url('login/do_login')}">
             <input name="user_name" type="text"  value="用户名" onfocus="this.value=''" onblur="if(this.value==''){this.value='用户名'}">
@@ -25,7 +25,7 @@
             <input value="登录" style="width:100%;" type="submit">
         </form>
     </div>
-    <div class="copyright">某某有限公司 版权所有©2016-2018 技术支持电话：000-00000000</div>
+    <div class="copyright">{$system_footer}</div>
 </div>
 </body>
 </html>
