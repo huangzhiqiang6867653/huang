@@ -84,18 +84,12 @@ layui.define(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'ele
     });
 
     function operation_user(user_id, type) {
-        var btn_text = type == 'add'?'新增':(type == 'edit'?'修改':(type == 'view'?'关闭':'取消'));
-        if(user_id){
-            $.ajax(
-
-            );
-        }
         layer.open({
-            title: user_id?'修改用户':'新增用户',
-            content: user_id?('用户id'+ user_id):'新增',
+            title: type == 'add' ? '新增用户': (type == 'edit'? '修改用户': '查看明细'),
+            content: '<iframe style="height: 98%; width: 100%; border: 0;" src="../user/to_user_form/?user_id='+user_id+'&type='+type+'" />',
             area: ['80%', '90%'],
             maxmin: true,
-            btn: [btn_text],
+            btn: ['关闭'],
             yes: function(index){
                 layer.close(index);
             }

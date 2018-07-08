@@ -114,16 +114,18 @@ class BusinessUser extends CommonModel
 
     /**
      * @param $uer_id
+     * @return array|object|string
      * @throws \think\db\exception\DataNotFoundException
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      * 获取用户个人信息
      */
     public function get_user_info($uer_id) {
-        if($user_info = $this->where('user_id', $uer_id)->where('delete_flag', 0)->find()->data){
-            $this->json_success($user_info);
+
+        if($user_info = $this->where('user_id', $uer_id)->find()->data){
+            return $user_info;
         }else{
-            $this->json_fail('查询结果为空');
+            return '查询结果为空';
         }
     }
 

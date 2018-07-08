@@ -35,9 +35,17 @@ class User extends CommonController
         $user->get_user_list($page, $limit);
     }
 
-    public function to_user_form($user_id = ''){
-        $user = new BusinessUser();
-        $user->get_user_info(10);
+    public function to_user_form($user_id = '', $type = 'add'){
+
+        $message = [
+            'form_type' => $type
+        ];
+        if($user_id) {
+            $user = new BusinessUser();
+            $user_info = $user->get_user_info($user_id);
+            $message = array_merge($message, $user_info);
+        }
+        return view('form', $message);
     }
 
     public function delete_user_info($user_id = '') {

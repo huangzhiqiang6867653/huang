@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {css href="__STATIC__/layui/css/layui.css" /}
+    {js href="__CSS__/user.css" /}
+    {js href="__CSS__/common.css" /}
+    {js href="__STATIC__/layui/layui.js" /}
+    <meta charset="UTF-8">
+    <title>表单</title>
+</head>
+<body>
+<form class="layui-form" action="{$rootPath}" method="post">
+    <input type="hidden" name="company_id" value="{$company_id?$company_id:''}">
+    <div class="layui-form-item">
+        <label class="layui-form-label">{$form_type=='view'?
+            '':
+            '<span class="require-symbol">*</span>'}公司名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="company_name" required lay-verify="required" autocomplete="off"
+                   placeholder="请输入公司名称" class="layui-input" maxlength="200" value="{$company_name?$company_name:''}"
+                   {$form_type=='view'?'readonly':''}>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">{$form_type=='view'?
+            '':
+            '<span class="require-symbol">*</span>'}公司地址</label>
+        <div class="layui-input-block">
+            <textarea type="text" name="address" required lay-verify="required" autocomplete="off" rows="3"
+                      placeholder="请输入公司地址" class="layui-textarea" maxlength="500" {$form_type=='view'?'readonly':''}>{$address?$address:''}</textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">{$form_type=='view'?
+            '':
+            '<span class="require-symbol">*</span>'}联系人</label>
+        <div class="layui-input-block">
+            <input type="text" name="contacts" required lay-verify="required" autocomplete="off"
+                   placeholder="请输入联系人" class="layui-input" maxlength="100" value="{$contacts?$contacts:''}"
+                   {$form_type=='view'?'readonly':''}>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">
+            {$form_type=='view'?
+            '':
+            '<span class="require-symbol">*</span>'} 联系电话</label>
+        <div class="layui-input-block">
+            <input type="text" name="contact_number" required lay-verify="required" autocomplete="off"
+                   placeholder="请输入联系电话" class="layui-input" maxlength="100"
+                   value="{$contact_number?$contact_number:''}" {$form_type=='view'?'readonly':''}>
+        </div>
+    </div>
+    {$form_type=='view'?
+    '':
+    '
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-filter="formSubmit">提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+    '
+    }
+</form>
+</body>
+</html>
+{js href="__JS__/company.js" /}

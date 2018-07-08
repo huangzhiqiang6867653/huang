@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {css href="__STATIC__/layui/css/layui.css" /}
+    {js href="__CSS__/common.css" /}
+    {js href="__STATIC__/layui/layui.js" /}
+    <meta charset="UTF-8">
+    <title>表单</title>
+</head>
+<body>
+<form class="layui-form" action="{$rootPath}" method="post">
+    <input type="hidden" name="customer_id" value="{$customer_id?$customer_id:''}">
+    <div class="layui-form-item">
+        <label class="layui-form-label">{$form_type=='view'?
+            '':
+            '<span class="require-symbol">*</span>'}真实姓名</label>
+        <div class="layui-input-inline">
+            <input type="text" name="name" required lay-verify="required" autocomplete="off"
+                   placeholder="请输入真实姓名" class="layui-input" maxlength="50" value="{$name?$name:''}"
+                   {$form_type=='view'?'readonly':''}>
+        </div>
+        <label class="layui-form-label">{$form_type=='view'?
+            '':
+            '<span class="require-symbol">*</span>'}手机号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="phone" required lay-verify="required" autocomplete="off"
+                   placeholder="请输入手机号" class="layui-input" maxlength="50" value="{$phone?$phone:''}"
+                   {$form_type=='view'?'readonly':''}>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">性别</label>
+        <div class="layui-input-inline">
+            <input type="radio" name="sex" value="1" title="男" {$sex?$sex==1?'checked':'':''}>
+            <input type="radio" name="sex" value="0" title="女" {$sex?$sex==0?'checked':'':'checked'}>
+        </div>
+        <label class="layui-form-label">年龄</label>
+        <div class="layui-input-inline">
+            <input type="text" name="age" autocomplete="off"
+                   placeholder="请输入年龄" class="layui-input" maxlength="10" value="{$age?$age:''}"
+                   {$form_type=='view'?'readonly':''}>
+        </div>
+        <label class="layui-form-label">身份证号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="id_number" autocomplete="off"
+                   placeholder="请输入身份证号" class="layui-input" maxlength="50" value="{$id_number?$id_number:''}"
+                   {$form_type=='view'?'readonly':''}>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">qq</label>
+        <div class="layui-input-inline">
+            <input type="text" name="qq" autocomplete="off"
+                   placeholder="请输入qq" class="layui-input" maxlength="10" value="{$qq?$qq:''}"
+                   {$form_type=='view'?'readonly':''}>
+        </div>
+        <label class="layui-form-label">微信</label>
+        <div class="layui-input-inline">
+            <input type="text" name="wechat" autocomplete="off"
+                   placeholder="请输入微信" class="layui-input" maxlength="10" value="{$wechat?$wechat:''}"
+                   {$form_type=='view'?'readonly':''}>
+        </div>
+        <label class="layui-form-label">微博</label>
+        <div class="layui-input-inline">
+            <input type="text" name="weibo" autocomplete="off"
+                   placeholder="请输入微博" class="layui-input" maxlength="10" value="{$weibo?$weibo:''}"
+                   {$form_type=='view'?'readonly':''}>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">{$form_type=='view'?
+            '':
+            '<span class="require-symbol">*</span>'}详细地址</label>
+        <div class="layui-input-block">
+            <textarea type="text" name="address" required lay-verify="required" autocomplete="off" rows="3"
+                      placeholder="请输入详细地址" class="layui-textarea" maxlength="500" {$form_type=='view'?'readonly':''}>{$address?$address:''}</textarea>
+        </div>
+    </div>
+    {$form_type=='view'?
+    '':
+    '
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-filter="formSubmit">提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+    '
+    }
+</form>
+</body>
+</html>
+{js href="__JS__/customer.js" /}
