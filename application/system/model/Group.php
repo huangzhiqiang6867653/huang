@@ -2,17 +2,20 @@
 /**
  * Created by PhpStorm.
  * User: huangzhiqiang
- * Date: 2018/5/15
- * Time: 下午4:48
+ * Date: 2018/7/8
+ * Time: 下午10:47
  */
 
 namespace app\system\model;
-
 use app\common\CommonModel;
+use traits\model\SoftDelete;
 use think\Session;
 
-class BusinessFunction extends CommonModel
+class Group extends CommonModel
 {
+    //软删除
+    use SoftDelete;
+    protected $deleteTime = 'delete_flag';
     /**
      * @param int $page
      * @param $limit
@@ -27,22 +30,21 @@ class BusinessFunction extends CommonModel
             $limit = $limit ? $limit : config('paginate.list_rows');
             if ($search_content) {
                 $count = $this
-                    ->where('function_name', 'like', '%' . $search_content . '%')
-                    ->whereOr('function_url', 'like', '%' . $search_content . '%')
+                    ->where('group_name', 'like', '%' . $search_content . '%')
+                    ->whereOr('remark', 'like', '%' . $search_content . '%')
                     ->count();
                 $list = $this
-                    ->where('function_name', 'like', '%' . $search_content . '%')
-                    ->whereOr('function_url', 'like', '%' . $search_content . '%')
+                    ->where('group_name', 'like', '%' . $search_content . '%')
                     ->whereOr('remark', 'like', '%' . $search_content . '%')
-                    ->field('function_id, function_name, function_url, sort, level_type, parent_id')
+                    ->field('group_id, company_id, shop_id, group_name, remark')
                     ->limit(($page - 1) * $limit, $limit)
-                    ->order('update_time', 'desc')
+                    ->order('add_time', 'desc')
                     ->select();
             } else {
                 $list = $this
-                    ->field('function_id, function_name, function_url, sort, level_type, parent_id')
+                    ->field('group_id, company_id, shop_id, group_name, remark')
                     ->limit(($page - 1) * $limit, $limit)
-                    ->order('update_time', 'desc')
+                    ->order('add_time', 'desc')
                     ->select();
                 $count = $this->count();
             }
@@ -63,7 +65,7 @@ class BusinessFunction extends CommonModel
     public function get_info($id)
     {
 
-        if ($info = $this->where('function_id', $id)->find()->data) {
+        if ($info = $this->where('group_id', $id)->find()->data) {
             return $info;
         } else {
             return '查询结果为空';
@@ -80,30 +82,19 @@ class BusinessFunction extends CommonModel
         }
         if (request()->isPost()) {
             $insert_data = [
-                'function_name' => input('function_name'),
-                'function_url' => input('function_url'),
-                'sort' => input('sort'),
-                'level_type' => input('level_type'),
-                'parent_id' => input('parent_id')
+                'group_name' => input('group_name'),
+                'remark' => input('remark'),
+                'add_time' => date('Y-m-d H:i:s', time()),
+                'add_user' => Session::get('user_info')->user_id
             ];
-            if (input('function_id')) {
-                $update_data = array_merge($insert_data,
-                    [
-                        'function_id' => input('function_id'),
-                        'update_time' => date('Y-m-d H:i:s', time())
-                    ]
-                );
+            if (input('group_id')) {
+                $update_data = array_merge($insert_data, ['group_id' => input('group_id')]);
                 if ($this->update($update_data)) {
                     $this->json_success('更新成功');
                 } else {
                     $this->json_fail('更新失败～');
                 }
             } else {
-                $insert_data = array_merge($insert_data,
-                    [
-                        'create_time' => date('Y-m-d H:i:s', time())
-                    ]
-                );
                 if ($this->insert($insert_data)) {
                     $this->json_success('添加成功');
                 } else {
@@ -116,7 +107,7 @@ class BusinessFunction extends CommonModel
     public function delete_info($id)
     {
         if ($id) {
-            $info = $this->where('function_id', $id)->count();
+            $info = $this->where('group_id', $id)->count();
             if (!$info) { //根据用户id查询不到用户数据
                 $this->json_fail('数据不存在');
                 return;

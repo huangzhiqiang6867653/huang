@@ -122,8 +122,6 @@ class Customer extends CommonModel
                 'city' => input('city'),
                 'area' => input('area'),
                 'address' => input('address'),
-                'add_user' => Session::get('user_info')->user_id,
-                'add_time' => date('Y-m-d H:i:s', time()),
                 'update_user' => Session::get('user_info')->user_id,
                 'update_time' => date('Y-m-d H:i:s', time())
             ];
@@ -168,6 +166,12 @@ class Customer extends CommonModel
                     $this->json_fail('更新失败～');
                 }
             } else {
+                $insert_data = array_merge($insert_data,
+                    [
+                        'add_user' => Session::get('user_info')->user_id,
+                        'add_time' => date('Y-m-d H:i:s', time())
+                    ]
+                    );
                 if ($this->insert($insert_data)) {
                     $this->json_success('添加成功');
                 } else {
@@ -191,5 +195,43 @@ class Customer extends CommonModel
         } else { //参数未传递
             $this->json_fail('参数为空(id)');
         }
+    }
+
+    public function record_aud()
+    {
+        if (request()->isGet()) {
+            $this->json_fail('请求方法异常，当前只支持post，不支持get');
+        }
+        if (request()->isPost()) {
+            //基本数据获取
+            $insert_data = [
+                'customer_id' => input('customer_id'),
+                'user_id' => Session::get('user_info')->user_id,
+                'track_title' => input('track_title'),
+                'track_time' => input('track_time'),
+                'track_content' => input('track_content'),
+                'add_time' => date('Y-m-d H:i:s', time())
+            ];
+            if (Db::table('tb_customer_track')->insert($insert_data)) {
+                $this->redirect('system/customer/add_record?id=' . input('company_id'));
+            } else {
+                $this->json_fail('添加失败～');
+            }
+        }
+    }
+
+    public function get_customer_record_list($company_id)
+    {
+        return Db::table('tb_customer_track')
+            ->where('customer_id', $company_id)
+            ->order('track_time', 'desc')
+            ->select();
+    }
+
+    public function get_max_date_record($company_id) {
+        return Db::table('tb_customer_track')
+            ->where('customer_id', $company_id)
+            ->field('max(track_time) as track_time')
+            ->find();
     }
 }

@@ -135,7 +135,7 @@ layui.define(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'ele
      * 门店管理员可以创建普通用户
      */
     function handle() {
-        var user_type = $('body').attr('user_type');
+        var user_type = $('body').attr('login_user_type');
         if (user_type && user_type == 'company') {
             $('option[value="admin"]').remove();
             $('option[value="company"]').remove();

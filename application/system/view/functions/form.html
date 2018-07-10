@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {css href="__STATIC__/layui/css/layui.css" /}
+    {js href="__CSS__/user.css" /}
+    {js href="__CSS__/common.css" /}
+    {js href="__STATIC__/layui/layui.js" /}
+    <meta charset="UTF-8">
+    <title>表单</title>
+</head>
+<body>
+<form class="layui-form" action="{$rootPath}" method="post">
+    <input type="hidden" name="group_id" value="{$group_id?$group_id:''}">
+    <div class="layui-form-item">
+        <label class="layui-form-label">{$form_type=='view'?
+            '':
+            '<span class="require-symbol">*</span>'}菜单名</label>
+        <div class="layui-input-block">
+            <input type="text" name="function_name" required lay-verify="required" autocomplete="off"
+                   placeholder="请输入菜单名" class="layui-input" maxlength="50" value="{$function_name?$function_name:''}"
+                   {$form_type=='view'?'readonly':''}>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">{$form_type=='view'?
+            '':
+            '<span class="require-symbol">*</span>'}排序</label>
+        <div class="layui-input-inline">
+            <input type="text" name="sort" required lay-verify="required" autocomplete="off"
+                   placeholder="请输入排序" class="layui-input" maxlength="5" value="{$sort?$sort:''}"
+                   {$form_type=='view'?'readonly':''}>
+        </div>
+        <label class="layui-form-label">{$form_type=='view'?
+            '':
+            '<span class="require-symbol">*</span>'}级别</label>
+        <div class="layui-input-inline">
+            <input type="text" name="level_type" required lay-verify="required" autocomplete="off"
+                   placeholder="请输入级别" class="layui-input" maxlength="5" value="{$level_type?$level_type:''}"
+                   {$form_type=='view'?'readonly':''}>
+        </div>
+        <label class="layui-form-label">{$form_type=='view'?
+            '':
+            '<span class="require-symbol">*</span>'}父主键</label>
+        <div class="layui-input-inline">
+            <input type="text" name="parent_id" required lay-verify="required" autocomplete="off"
+                   placeholder="请输入父主键" class="layui-input" maxlength="5" value="{$parent_id?$parent_id:''}"
+                   {$form_type=='view'?'readonly':''}>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">{$form_type=='view'?
+            '':
+            '<span class="require-symbol">*</span>'}URL</label>
+        <div class="layui-input-block">
+            <input type="text" name="function_url" required lay-verify="required" autocomplete="off"
+                   placeholder="请输入地址" class="layui-input" maxlength="50" value="{$function_url?$function_url:''}"
+                   {$form_type=='view'?'readonly':''}>
+        </div>
+    </div>
+    {$form_type=='view'?
+    '':
+    '
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-filter="formSubmit">提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+    '
+    }
+</form>
+</body>
+</html>
+{js href="__JS__/functions.js" /}

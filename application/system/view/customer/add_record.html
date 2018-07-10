@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {css href="__STATIC__/layui/css/layui.css" /}
+    {js href="__CSS__/common.css" /}
+    {js href="__STATIC__/layui/layui.js" /}
+    <meta charset="UTF-8">
+    <title>添加拜访记录</title>
+</head>
+<body class="layui-row layui-col-space10">
+<div class="layui-col-md7">
+    <form class="layui-form" action="{$rootPath}" method="post">
+        <input type="hidden" name="customer_id" value="{$customer_id?$customer_id:''}">
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span class="require-symbol">*</span>跟进主题</label>
+            <div class="layui-input-block">
+                <input type="text" name="track_title" required lay-verify="required" autocomplete="off"
+                       placeholder="请输入跟进主题" class="layui-input" maxlength="200">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span class="require-symbol">*</span>跟进时间</label>
+            <div class="layui-input-block">
+                <input type="text" name="track_time" id="date" lay-verify="date" placeholder="请输入跟进时间"
+                       autocomplete="off" class="layui-input" minDate="{$min_date?$min_date:''}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span class="require-symbol">*</span>跟进内容</label>
+            <div class="layui-input-block">
+            <textarea type="text" name="track_content" required lay-verify="required" autocomplete="off" rows="6"
+                      placeholder="请输入跟进内容" class="layui-textarea" maxlength="1000"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-filter="formSubmit">提交</button>
+                <button class="layui-btn layui-btn-primary">清空</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="layui-col-md1"></div>
+<div class="layui-col-md4" style="height: 100%">
+    <ul class="layui-timeline">
+        <li class="layui-timeline-item">
+            <i class="layui-icon layui-timeline-axis"></i>
+            <div class="layui-timeline-content layui-text">
+                <div class="layui-timeline-title">2018年，layui 5.0 发布。并发展成为中国最受欢迎的前端UI框架（期望）</div>
+            </div>
+        </li>
+        <li class="layui-timeline-item">
+            <i class="layui-icon layui-timeline-axis"></i>
+            <div class="layui-timeline-content layui-text">
+                <div class="layui-timeline-title">2017年，layui 里程碑版本 2.0 发布</div>
+            </div>
+        </li>
+        <li class="layui-timeline-item">
+            <i class="layui-icon layui-timeline-axis"></i>
+            <div class="layui-timeline-content layui-text">
+                <div class="layui-timeline-title">2016年，layui 首个版本发布</div>
+            </div>
+        </li>
+        <li class="layui-timeline-item">
+            <i class="layui-icon layui-timeline-axis"></i>
+            <div class="layui-timeline-content layui-text">
+                <div class="layui-timeline-title">2015年，layui 孵化</div>
+            </div>
+        </li>
+        <li class="layui-timeline-item">
+            <i class="layui-icon layui-anim layui-anim-rotate layui-anim-loop layui-timeline-axis"></i>
+            <div class="layui-timeline-content layui-text">
+                <div class="layui-timeline-title">更久前，轮子时代。维护几个独立组件：layer等</div>
+            </div>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
+{js href="__JS__/add_record.js" /}

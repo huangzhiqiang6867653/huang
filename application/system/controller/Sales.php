@@ -52,7 +52,8 @@ class Sales extends CommonController
         $model = new PublicModel();
         $message = [
             'form_type' => $type,
-            'rootPath' => request()->domain() . request()->root() . '/system/sales/aud'
+            'rootPath' => request()->domain() . request()->root() . '/system/sales/aud',
+            'login_user_type' => Session::get('user_info')->classify
         ];
         if ($user_info = Session::get('user_info')) {
             if ($user_info->classify == 'admin') {

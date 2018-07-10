@@ -7,6 +7,7 @@
  */
 
 namespace app\system\controller;
+
 use app\common\CommonController;
 use app\system\model\Customer as PublicModel;
 
@@ -74,5 +75,29 @@ class Customer extends CommonController
     {
         $model = new PublicModel();
         return $model->delete_info($id);
+    }
+
+    public function add_record($id)
+    {
+        $model = new PublicModel();
+        $min_date = $model->get_max_date_record($id);
+        $data = [
+            'customer_id' => $id,
+            'rootPath' => request()->domain() . request()->root() . '/system/customer/record_aud',
+            'record_list' => $model->get_customer_record_list($id),
+            'min_date' => $min_date?$min_date['track_time']:''
+        ];
+        return view("add_record", $data);
+    }
+
+    public function view_record($id)
+    {
+        return view("view_record", ['company_id' => $id]);
+    }
+
+    public function record_aud()
+    {
+        $model = new PublicModel();
+        return $model->record_aud();
     }
 }

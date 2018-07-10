@@ -17,7 +17,7 @@ layui.define(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'ele
     //表格渲染
     table.render({
         elem: '#table_list_id',
-        url: '../customer/listPage/', //数据接口
+        url: '../functions/listPage/', //数据接口
         cellMinWidth: 80,
         page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
             layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'], //自定义分页布局
@@ -27,12 +27,13 @@ layui.define(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'ele
             limit: 10 //每页数量
         }, //开启分页
         cols: [[ //表头
-            {field: 'name', title: '姓名', align: 'center'},
-            {field: 'sex', title: '性别', align: 'center'},
-            {field: 'phone', title: '手机号', align: 'center'},
-            {field: 'qq', title: 'qq号', align: 'center'},
-            {field: 'id_number', title: '身份证', align: 'center', },
-            {fixed: 'right', width: 300, title: '操作', align: 'center', toolbar: '#operationBar'}
+            {field: 'function_id', title: '主键', align: 'center'},
+            {field: 'function_name', title: '菜单名', align: 'center'},
+            {field: 'function_url', title: 'URL', align: 'center'},
+            {field: 'sort', title: '排序', align: 'center'},
+            {field: 'level_type', title: '级别', align: 'center'},
+            {field: 'parent_id', title: '父主键', align: 'center'},
+            {fixed: 'right', width: 165, align: 'center', toolbar: '#operationBar'}
         ]]
     });
 
@@ -41,14 +42,14 @@ layui.define(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'ele
         var data = obj.data //获得当前行数据
             , layEvent = obj.event; //获得 lay-event 对应的值
         if (layEvent === 'detail') {
-            operation_function(data['customer_id'], 'view');
+            operation_handle(data['function_id'], 'view');
         } else if (layEvent === 'del') {
             layer.confirm('确认删除该条数据？', function (index) {
                 $.ajax({
                     type: 'POST',
                     dataType: 'json',
-                    url: '../customer/delete/',
-                    data: {'id': data['customer_id']},
+                    url: '../functions/delete/',
+                    data: {'id': data['function_id']},
                     success: function (data) {
                         if (data.code == 200) {
                             layer.close(index);
@@ -74,25 +75,21 @@ layui.define(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'ele
 
             });
         } else if (layEvent === 'edit') {
-            operation_function(data['customer_id'], 'edit');
-        }else if(layEvent === 'add_record'){
-            add_record(data['customer_id']);
-        }else if(layEvent === 'view_record'){
-            view_record(data['customer_id']);
+            operation_handle(data['function_id'], 'edit');
         }
     });
 
 
     //新增编辑用户
     $(document).on('click', '#add_operation_id', function () {
-        operation_function('', 'add')
+        operation_handle('', 'add')
     });
 
-    function operation_function(id, type) {
+    function operation_handle(id, type) {
         layer.open({
             title: type == 'add' ? '新增' : (type == 'edit' ? '修改' : '查看'),
-            content: '<iframe style="height: 98%; width: 100%; border: 0;" src="../customer/form/?id=' + id + '&type=' + type + '" />',
-            area: ['80%', '90%'],
+            content: '<iframe style="height: 98%; width: 100%; border: 0;" src="../functions/form/?id=' + id + '&type=' + type + '" />',
+            area: ['100%', '80%'],
             maxmin: true,
             btn: ['关闭'],
             yes: function (index) {
@@ -111,32 +108,4 @@ layui.define(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'ele
             where: {'search_content': $('input[name="search_content"]').val()}
         });
     });
-
-    //添加拜访记录
-    function add_record(id) {
-        layer.open({
-            title: '添加拜访记录',
-            content: '<iframe style="height: 98%; width: 100%; border: 0;" src="../customer/add_record/?id=' + id + '" />',
-            area: ['90%', '90%'],
-            maxmin: true,
-            btn: ['关闭'],
-            yes: function (index) {
-                layer.close(index);
-            }
-        });
-    }
-
-    //查看拜访记录
-    function view_record(id) {
-        layer.open({
-            title: '查看拜访记录',
-            content: '<iframe style="height: 98%; width: 100%; border: 0;" src="../customer/view_record/?id=' + id + '" />',
-            area: ['60%', '100%'],
-            maxmin: true,
-            btn: ['关闭'],
-            yes: function (index) {
-                layer.close(index);
-            }
-        });
-    }
 });
