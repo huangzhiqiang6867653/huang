@@ -100,4 +100,9 @@ class Customer extends CommonController
         $model = new PublicModel();
         return $model->record_aud();
     }
+
+    public function get_all_customer_list() {
+        $model = new PublicModel();
+        return $model->get_all_customer_list();
+    }
 }

@@ -6,33 +6,33 @@
     {js href="__STATIC__/layui/layui.js" /}
     {js href="__JS__/jquery-1.7.0.min.js" /}
     <meta charset="UTF-8">
-    <title>{$system_name?$system_name:'卓新科技后台管理系统'}</title>
+    <title>{$system_name?$system_name:'安徽强智科技后台管理系统'}</title>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo" style="font-size: 26px;">{$system_name?$system_name:'卓新科技后台管理系统'}</div>
+        <div class="layui-logo" style="font-size: 26px;">{$system_name?$system_name:'安徽强智科技后台管理系统'}</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item"><a href="">首页</a></li>
             {foreach $menu_list as $key => $value }
-                {if condition="$value->level_type eq 1"}
-                    <li class="layui-nav-item"><a href="">{$value->function_name}</a>
-                        <dl class="layui-nav-child">
-                            {foreach $menu_list as $key2 => $value2 }
-                                {if condition="$value2->parent_id eq $value->function_id"}
-                                    <dd
-                                            _href="{:url($value2->function_url)}"
-                                            _id = "{$value2->function_id}"
-                                            style="cursor: pointer;"
-                                            class="second_menu_id"
-                                    ><a>{$value2->function_name}</a>
-                                    </dd>
-                                {/if}
-                            {/foreach}
-                        </dl>
-                    </li>
-                {/if}
+            {if condition="$value->level_type eq 1"}
+            <li class="layui-nav-item"><a href="">{$value->function_name}</a>
+                <dl class="layui-nav-child">
+                    {foreach $menu_list as $key2 => $value2 }
+                    {if condition="$value2->parent_id eq $value->function_id"}
+                    <dd
+                            _href="{:url($value2->function_url)}"
+                            _id="{$value2->function_id}"
+                            style="cursor: pointer;"
+                            class="second_menu_id"
+                    ><a>{$value2->function_name}</a>
+                    </dd>
+                    {/if}
+                    {/foreach}
+                </dl>
+            </li>
+            {/if}
             {/foreach}
         </ul>
         <ul class="layui-nav layui-layout-right">
@@ -54,27 +54,26 @@
     <div class="layui-body" style="left: 0;">
         <!-- 内容主体区域 -->
         <div class="index-content">
-            <div class="layui-tab" lay-allowClose="true" lay-filter="index_tab_filter" style="height: calc(100% - 71px);">
+            <div class="layui-tab" lay-allowClose="true" lay-filter="index_tab_filter"
+                 style="height: calc(100% - 71px);">
                 <ul class="layui-tab-title">
-                    <li class="layui-this">首页</li>
+                    <!--<li class="layui-this">首页</li>-->
                     <!--<li>用户管理</li>-->
                 </ul>
-                <div class="layui-tab-content" style="height: 100%;">
-                    <div class="layui-tab-item layui-show">首页</div>
-                    <!--<div class="layui-tab-item"><iframe src="http://www.hao123.com"></iframe></div>-->
+                <div class="layui-tab-content" style="height: 100%;" id="index_area_id">
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="layui-footer"  style="left: 0;text-align: center;">
+    <div class="layui-footer" style="left: 0;text-align: center;">
         <!-- 底部固定区域 -->
-        {$system_footer?$system_footer:'© 2018-2028 安徽卓新信息科技有限公司'}
+        {$system_footer?$system_footer:'© 2018-2028 安徽强智信息科技有限公司'}
     </div>
 </div>
 <script>
     //JavaScript代码区域
-    layui.use('element', function(){
+    layui.use('element', function () {
         var element = layui.element;
 
     });

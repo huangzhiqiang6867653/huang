@@ -171,7 +171,7 @@ class Customer extends CommonModel
                         'add_user' => Session::get('user_info')->user_id,
                         'add_time' => date('Y-m-d H:i:s', time())
                     ]
-                    );
+                );
                 if ($this->insert($insert_data)) {
                     $this->json_success('添加成功');
                 } else {
@@ -228,10 +228,28 @@ class Customer extends CommonModel
             ->select();
     }
 
-    public function get_max_date_record($company_id) {
+    public function get_max_date_record($company_id)
+    {
         return Db::table('tb_customer_track')
             ->where('customer_id', $company_id)
             ->field('max(track_time) as track_time')
             ->find();
+    }
+
+    /**
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     * 根据权限获取可以展示的用户数据
+     */
+    public function get_all_customer_list()
+    {
+        $list = $this
+            ->field('customer_id, shop_id, company_id, classify, 
+                    name, sex, age, id_number, phone, qq, wechat, weibo, province, 
+                    city, area, address, add_time, add_user, update_time, update_user')
+            ->order('update_time', 'desc')
+            ->select();
+        $this->json_success($list);
     }
 }

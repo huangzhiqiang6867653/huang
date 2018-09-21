@@ -17,7 +17,7 @@ layui.define(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'ele
     //表格渲染
     table.render({
         elem: '#table_list_id',
-        url: '../functions/listPage/', //数据接口
+        url: '../role/listPage/', //数据接口
         cellMinWidth: 80,
         page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
             layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'], //自定义分页布局
@@ -27,12 +27,8 @@ layui.define(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'ele
             limit: 10 //每页数量
         }, //开启分页
         cols: [[ //表头
-            {field: 'function_id', title: '主键', align: 'center'},
-            {field: 'function_name', title: '菜单名', align: 'center'},
-            {field: 'function_url', title: 'URL', align: 'center'},
-            {field: 'sort', title: '排序', align: 'center'},
-            {field: 'level_type', title: '级别', align: 'center'},
-            {field: 'parent_id', title: '父主键', align: 'center'},
+            {field: 'role_name', title: '角色名', align: 'center'},
+            {field: 'remark', title: '备注', align: 'center'},
             {fixed: 'right', width: 165, align: 'center', toolbar: '#operationBar'}
         ]]
     });
@@ -42,14 +38,14 @@ layui.define(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'ele
         var data = obj.data //获得当前行数据
             , layEvent = obj.event; //获得 lay-event 对应的值
         if (layEvent === 'detail') {
-            operation_handle(data['function_id'], 'view');
+            operation_handle(data['role_id'], 'view');
         } else if (layEvent === 'del') {
             layer.confirm('确认删除该条数据？', function (index) {
                 $.ajax({
                     type: 'POST',
                     dataType: 'json',
-                    url: '../functions/delete/',
-                    data: {'id': data['function_id']},
+                    url: '../role/delete/',
+                    data: {'id': data['role_id']},
                     success: function (data) {
                         if (data.code == 200) {
                             layer.close(index);
@@ -75,7 +71,7 @@ layui.define(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'ele
 
             });
         } else if (layEvent === 'edit') {
-            operation_handle(data['function_id'], 'edit');
+            operation_handle(data['role_id'], 'edit');
         }
     });
 
@@ -88,8 +84,8 @@ layui.define(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'ele
     function operation_handle(id, type) {
         layer.open({
             title: type == 'add' ? '新增' : (type == 'edit' ? '修改' : '查看'),
-            content: '<iframe style="height: 98%; width: 100%; border: 0;" src="../functions/form/?id=' + id + '&type=' + type + '" />',
-            area: ['70%', '90%'],
+            content: '<iframe style="height: 98%; width: 100%; border: 0;" src="../role/form/?id=' + id + '&type=' + type + '" />',
+            area: ['60%', '80%'],
             maxmin: true,
             btn: ['关闭'],
             yes: function (index) {

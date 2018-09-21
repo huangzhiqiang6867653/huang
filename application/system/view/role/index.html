@@ -1,10 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {css href="__STATIC__/layui/css/layui.css" /}
+    {js href="__CSS__/common.css" /}
+    {js href="__STATIC__/layui/layui.js" /}
     <meta charset="UTF-8">
-    <title>角色权限管理</title>
+    <title>用户组管理</title>
 </head>
 <body>
-        角色权限管理
+    <div style="margin: 20px 0">
+        搜索内容：
+        <div class="layui-inline">
+            <input class="layui-input" name="search_content" id="company_search_id" autocomplete="off">
+        </div>
+        <button class="layui-btn" style="margin-left: 30px; border-radius: 7px;" data-type="reload" id="search_id">搜索</button>
+        <button class="layui-btn layui-btn-normal" style="margin-left: 30px; border-radius: 7px;" id="add_operation_id">新增</button>
+    </div>
+    <table class="layui-hide" id="table_list_id" lay-filter="table_list"></table>
+    <script type="text/html" id="operationBar">
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
 </body>
 </html>
+{js href="__JS__/role.js" /}

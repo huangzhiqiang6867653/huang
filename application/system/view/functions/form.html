@@ -10,7 +10,7 @@
 </head>
 <body>
 <form class="layui-form" action="{$rootPath}" method="post">
-    <input type="hidden" name="group_id" value="{$group_id?$group_id:''}">
+    <input type="hidden" name="function_id" value="{$function_id?$function_id:''}">
     <div class="layui-form-item">
         <label class="layui-form-label">{$form_type=='view'?
             '':
@@ -26,7 +26,7 @@
             '':
             '<span class="require-symbol">*</span>'}排序</label>
         <div class="layui-input-inline">
-            <input type="text" name="sort" required lay-verify="required" autocomplete="off"
+            <input type="text" name="sort" required lay-verify="required|number" autocomplete="off"
                    placeholder="请输入排序" class="layui-input" maxlength="5" value="{$sort?$sort:''}"
                    {$form_type=='view'?'readonly':''}>
         </div>
@@ -34,7 +34,7 @@
             '':
             '<span class="require-symbol">*</span>'}级别</label>
         <div class="layui-input-inline">
-            <input type="text" name="level_type" required lay-verify="required" autocomplete="off"
+            <input type="text" name="level_type" required lay-verify="required|number" autocomplete="off"
                    placeholder="请输入级别" class="layui-input" maxlength="5" value="{$level_type?$level_type:''}"
                    {$form_type=='view'?'readonly':''}>
         </div>
@@ -42,7 +42,7 @@
             '':
             '<span class="require-symbol">*</span>'}父主键</label>
         <div class="layui-input-inline">
-            <input type="text" name="parent_id" required lay-verify="required" autocomplete="off"
+            <input type="text" name="parent_id" required lay-verify="required|number" autocomplete="off"
                    placeholder="请输入父主键" class="layui-input" maxlength="5" value="{$parent_id?$parent_id:''}"
                    {$form_type=='view'?'readonly':''}>
         </div>
